@@ -21,11 +21,17 @@ internal class DataAdapterYourFeatures(private val names: ArrayList<ItemMenu>) :
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, i: Int) {
+        // Qué significa este 0? Se podría sustituir por un enumerado?
+        // Qué valores podrían llegar en este campo?
         if(names[i].type!=0) {
             (viewHolder as ViewHolder).deleteItem.setImageResource(R.drawable.ic_func_031)
         }
+
+        //Podeis ahorraros tener que acceder tantas veces al arry de names, guardando el valor en una variable
         (viewHolder as ViewHolder).iconItem.setImageResource(names[i].itemIcon)
         viewHolder.nameItem.text = names[i].itemName
+
+        //Si este elemento siempre tiene el mismo valor, tiene que asignarse  cada vez que hago un bind?
         viewHolder.sliderItem.setImageResource(R.drawable.ic_sys_15)
     }
 

@@ -36,6 +36,8 @@ internal class DataAdapter(private val names: ArrayList<ItemMenu>) : RecyclerVie
             val pos = if (countNoDefaultDeleted(names) < i) {
                 i - 1
             } else i
+
+            //Acceso repetido a un mismo array, gasta tiempo :)
             (viewHolder as ViewHolderItem).itemName.text = names[pos].itemName
             viewHolder.itemIcon.setImageResource(names[pos].itemIcon)
         }
@@ -53,6 +55,7 @@ internal class DataAdapter(private val names: ArrayList<ItemMenu>) : RecyclerVie
             itemName = view.findViewById(R.id.name_item)
             itemIcon = view.findViewById(R.id.img_item)
 
+            //Si no es una funcioanlidad terminada, poned un TODO, para que todos vean que falta por ampliar
             view.setOnClickListener(object : View.OnClickListener{
                 override fun onClick(p0: View?) {
                     Snackbar.make(p0!!, "Replace with your own action", Snackbar.LENGTH_LONG).show()
@@ -63,6 +66,8 @@ internal class DataAdapter(private val names: ArrayList<ItemMenu>) : RecyclerVie
 
     internal inner class ViewHolderOtherFeatures(view: View) : RecyclerView.ViewHolder(view)
 
+    //Este tipo de filtros, os recomiendo que os mireis los Streams:
+    //https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.streams/index.html
     private fun countNoDefaultDeleted(list: ArrayList<ItemMenu>): Int {
 
         var count = 0

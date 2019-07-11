@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity(){
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        //Como ahora teneis repositorio, todo el codigo muerto -> delete :)
         ///////////////////// INSERT DATA IN SHARED PREFERENCES (TEMPORAL) //////////////////
 
 //        val shared: SharedPreferences = getSharedPreferences("features", 0) //Private mode
@@ -113,6 +114,7 @@ class MainActivity : AppCompatActivity(){
         val groupListType = object : TypeToken<ArrayList<ItemMenu>>() {}.type
 
         val sharedPref: SharedPreferences = getSharedPreferences("features", 0) //Private mode
+        //Os suena este codigo de otro lugar? :))
         val itemList = Gson().fromJson<ArrayList<ItemMenu>>(sharedPref.getString("yourFeatures", ""), groupListType)
 
         itemList.sort()

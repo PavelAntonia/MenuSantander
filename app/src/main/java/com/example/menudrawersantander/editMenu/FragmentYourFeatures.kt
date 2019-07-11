@@ -38,6 +38,8 @@ class FragmentYourFeatures : Fragment() {
         val groupListType = object : TypeToken<ArrayList<ItemMenu>>() {}.type
 
         val sharedPref: SharedPreferences = activity!!.getSharedPreferences("features", 0) //Private mode
+        //Codigo repetido a la pantalla anterior, copia-pega, esto  suele requiere refactoring y que solo exista
+        //en un solo sitio, si la logica es X, debería ser X  para cualquier llamante y en  todas partes
         itemList = Gson().fromJson<ArrayList<ItemMenu>>(sharedPref.getString("yourFeatures", ""), groupListType)
 
         itemList.sort()
@@ -46,7 +48,7 @@ class FragmentYourFeatures : Fragment() {
         val mAdapter = DataAdapterYourFeatures(itemList)
         view.recycler_features.adapter = mAdapter
 
-
+        //Por organizar el  codigo, crearos una clase helpers que agrupe esta logica.
         //dragging and dropping
         val helper =
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0) {

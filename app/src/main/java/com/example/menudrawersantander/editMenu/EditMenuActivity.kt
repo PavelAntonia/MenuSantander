@@ -18,6 +18,8 @@ class EditMenuActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_edit_menu)
 
+        //Intentad mover esto a un repositirio, que se encargue de obtener estos valores
+        //Principio de compatimentación, cada cosa hace solo lo que le corresponde
         val titles = arrayListOf<String>()
         titles.add(getString(R.string.your_features))
         titles.add(getString(R.string.all_features))
@@ -36,6 +38,7 @@ class EditMenuActivity : AppCompatActivity() {
     //to save the drag and drop changes (done button)
     fun doneButton(view: View){
 
+        //Igual que arriba, el repositorio es quien gestiona esto, para la activity debería ser, leer o guardar.
         val sharedPref: SharedPreferences = getSharedPreferences("features", 0) //Private mode
         val data = Gson().toJson(FragmentYourFeatures.itemList)
         val editor = sharedPref.edit()

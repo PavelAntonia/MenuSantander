@@ -23,6 +23,8 @@ class FragmentAllFeatures: Fragment() {
         val groupListType = object : TypeToken<ArrayList<ItemMenu>>() {}.type
 
         val sharedPref: SharedPreferences = activity!!.getSharedPreferences("features", 0) //Private mode
+        //Valores a fuego, esto suele dar problema, un día escribes yourFaetures y luego cuesta mucho  ver donde está  el error
+        //Relacionado con el repositorio que comento en la  activity
         val itemList = Gson().fromJson<ArrayList<ItemMenu>>(sharedPref.getString("yourFeatures", ""), groupListType)
 
         itemList.sort()
