@@ -51,6 +51,7 @@ internal class DataAdapterYourFeatures(private val names: ArrayList<ItemMenu>,
                 if (MotionEventCompat.getActionMasked(event) == ACTION_DOWN) {
                     dragStartListener.onStartDrag(viewHolder)
                 }
+                
                 false
             })
 
