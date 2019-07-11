@@ -14,7 +14,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_edit.view.*
 
-class FragmentAllFeatures: Fragment() {
+class FragmentAllFeatures : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -30,9 +30,11 @@ class FragmentAllFeatures: Fragment() {
         itemList.sort()
 
         view.recycler_features.layoutManager = LinearLayoutManager(view.context)
-        var mAdapter = DataAdapter(itemList)
+        var mAdapter = DataAdapter(itemList,4)
         view.recycler_features.adapter = mAdapter
 
         return view
     }
+
+
 }

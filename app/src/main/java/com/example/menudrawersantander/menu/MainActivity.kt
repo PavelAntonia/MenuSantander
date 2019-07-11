@@ -18,7 +18,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.navigation_menu.*
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
     lateinit var drawerLayout: DrawerLayout
 
@@ -29,9 +29,9 @@ class MainActivity : AppCompatActivity(){
         setSupportActionBar(toolbar)
 
         drawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
         val toggle =
-            ActionBarDrawerToggle(this, drawerLayout,
+            ActionBarDrawerToggle(
+                this, drawerLayout,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close
             )
@@ -67,7 +67,16 @@ class MainActivity : AppCompatActivity(){
 //                0
 //            )
 //        )
-//        sharedList.add(ItemMenu(3, "Cards", R.drawable.ic_ban_099, 1, false, 1))
+//        sharedList.add(
+//            ItemMenu(
+//                3,
+//                "Cards",
+//                R.drawable.ic_ban_099,
+//                1,
+//                false,
+//                1
+//            )
+//        )
 //        sharedList.add(
 //            ItemMenu(
 //                4,
@@ -75,23 +84,37 @@ class MainActivity : AppCompatActivity(){
 //                R.drawable.ic_serv_023,
 //                1,
 //                true,
+//                0
+//            )
+//        )
+//        sharedList.add(
+//            ItemMenu(
+//                5,
+//                "Products",
+//                R.drawable.ic_ban_089,
+//                4,
+//                false,
 //                1
 //            )
 //        )
-//        sharedList.add(ItemMenu(5, "Products", R.drawable.ic_ban_089, 4, false, 2))
 //
 //
 //        val data = Gson().toJson(sharedList)
 //        val editor = shared.edit()
 //        editor.putString("yourFeatures", data)
+//        editor.putInt("otherFeaturesPosition",2)
 //        editor.apply()
+//
+//        /////////////////////////////////////////////////////////////////////////
 
     }
 
-    override fun onResume() {
-        super.onResume()
+
+    override fun onStart() {
+        super.onStart()
         setUpMenu()
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
@@ -111,22 +134,23 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun setUpMenu() {
+
         val groupListType = object : TypeToken<ArrayList<ItemMenu>>() {}.type
 
         val sharedPref: SharedPreferences = getSharedPreferences("features", 0) //Private mode
         //Os suena este codigo de otro lugar? :))
         val itemList = Gson().fromJson<ArrayList<ItemMenu>>(sharedPref.getString("yourFeatures", ""), groupListType)
+        val positionOtherFeatures = sharedPref.getInt("otherFeaturesPosition",4)//TODO CHANGE DEFAULT VALUE
 
         itemList.sort()
 
         selected_items.layoutManager = LinearLayoutManager(this)
-        var mAdapter = DataAdapter(itemList)
+        val mAdapter = DataAdapter(itemList,positionOtherFeatures)
         selected_items.adapter = mAdapter
     }
 
     fun intentEditMenu(view: View){
-
-        val intent = Intent(view.context, EditMenuActivity::class.java)
+        val intent = Intent(view.context,EditMenuActivity::class.java)
         view.context.startActivity(intent)
     }
 }

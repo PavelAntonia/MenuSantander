@@ -25,10 +25,11 @@ import kotlinx.android.synthetic.main.fragment_edit.view.recycler_features
 import java.util.*
 import kotlin.collections.ArrayList
 
-class FragmentYourFeatures : Fragment() {
+class FragmentYourFeatures : Fragment(), OnStartDragListener {
 
     companion object {
         lateinit var itemList: ArrayList<ItemMenu>
+        lateinit var helper: ItemTouchHelper
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -38,47 +39,64 @@ class FragmentYourFeatures : Fragment() {
         val groupListType = object : TypeToken<ArrayList<ItemMenu>>() {}.type
 
         val sharedPref: SharedPreferences = activity!!.getSharedPreferences("features", 0) //Private mode
+
         //Codigo repetido a la pantalla anterior, copia-pega, esto  suele requiere refactoring y que solo exista
         //en un solo sitio, si la logica es X, debería ser X  para cualquier llamante y en  todas partes
-        itemList = Gson().fromJson<ArrayList<ItemMenu>>(sharedPref.getString("yourFeatures", ""), groupListType)
+        itemList = Gson().fromJson(sharedPref.getString("yourFeatures", ""), groupListType)
+        val positionOtherFeatures = sharedPref.getInt("otherFeaturesPosition", 4)
+
 
         itemList.sort()
 
         view.recycler_features.layoutManager = LinearLayoutManager(view.context)
-        val mAdapter = DataAdapterYourFeatures(itemList)
+        val mAdapter = DataAdapterYourFeatures(itemList, positionOtherFeatures, this)
         view.recycler_features.adapter = mAdapter
 
         //Por organizar el  codigo, crearos una clase helpers que agrupe esta logica.
-        //dragging and dropping
-        val helper =
-            ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0) {
+         helper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0) {
+
+             override fun isLongPressDragEnabled(): Boolean {
+                 return false
+             }
 
                 override fun onMove(
                     recyclerView: RecyclerView,
                     dragged: RecyclerView.ViewHolder,
                     target: RecyclerView.ViewHolder
                 ): Boolean {
+
                     val posDragged = dragged.adapterPosition
                     val posTarget = target.adapterPosition
+
 
                     Collections.swap(itemList, posDragged, posTarget)
                     mAdapter.notifyItemMoved(posDragged, posTarget)
 
+
                     var i = 0
                     itemList.forEach {
                         it.position = i++
+//                        if (it.type == 2){
+//                            //mAdapter.onBindViewHolder(ViewHolderOtherFeatures(view),i)
+//                            //mAdapter.notifyItemChanged(i)
+//
+//                        }
                     }
+
                     return false
                 }
 
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                }
-
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
             })
 
-        helper.attachToRecyclerView(view.recycler_features)
-        return view
 
+        helper.attachToRecyclerView(view.recycler_features)
+
+        return view
+    }
+
+    override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
+        helper.startDrag(viewHolder)
     }
 
 

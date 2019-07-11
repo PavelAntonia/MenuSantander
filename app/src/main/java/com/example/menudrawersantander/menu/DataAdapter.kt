@@ -13,10 +13,13 @@ import java.util.ArrayList
 private const val ITEM_VIEWHOLDER = 0
 private const val OTHER_FEATURES_VIEWHOLDER = 1
 
-internal class DataAdapter(private val names: ArrayList<ItemMenu>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+//TODO implement update value
+
+internal class DataAdapter(private val names: ArrayList<ItemMenu>, private val positionOtherFeatures: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == countNoDefaultDeleted(names)) OTHER_FEATURES_VIEWHOLDER else ITEM_VIEWHOLDER
+        return if (position == positionOtherFeatures) OTHER_FEATURES_VIEWHOLDER else ITEM_VIEWHOLDER
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -32,19 +35,20 @@ internal class DataAdapter(private val names: ArrayList<ItemMenu>) : RecyclerVie
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, i: Int) {
 
-        if (getItemViewType(i) == 0) {
-            val pos = if (countNoDefaultDeleted(names) < i) {
+        if (getItemViewType(i) == ITEM_VIEWHOLDER) {
+            val pos = if (positionOtherFeatures < i) {
                 i - 1
             } else i
 
             //Acceso repetido a un mismo array, gasta tiempo :)
             (viewHolder as ViewHolderItem).itemName.text = names[pos].itemName
             viewHolder.itemIcon.setImageResource(names[pos].itemIcon)
-        }
+
+        } else (viewHolder as ViewHolderOtherFeatures).infoTextOtherFeatures.visibility = View.GONE
     }
 
     override fun getItemCount(): Int {
-        return if (countNoDefaultDeleted(names) == names.size) names.size else names.size + 1
+        return if (positionOtherFeatures == names.size) names.size else names.size + 1
     }
 
     internal inner class ViewHolderItem(view: View) : RecyclerView.ViewHolder(view) {
@@ -56,7 +60,7 @@ internal class DataAdapter(private val names: ArrayList<ItemMenu>) : RecyclerVie
             itemIcon = view.findViewById(R.id.img_item)
 
             //Si no es una funcioanlidad terminada, poned un TODO, para que todos vean que falta por ampliar
-            view.setOnClickListener(object : View.OnClickListener{
+            view.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(p0: View?) {
                     Snackbar.make(p0!!, "Replace with your own action", Snackbar.LENGTH_LONG).show()
                 }
@@ -64,19 +68,18 @@ internal class DataAdapter(private val names: ArrayList<ItemMenu>) : RecyclerVie
         }
     }
 
-    internal inner class ViewHolderOtherFeatures(view: View) : RecyclerView.ViewHolder(view)
-
     //Este tipo de filtros, os recomiendo que os mireis los Streams:
     //https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.streams/index.html
-    private fun countNoDefaultDeleted(list: ArrayList<ItemMenu>): Int {
-
+    /*private fun countNoDefaultDeleted(list: ArrayList<ItemMenu>): Int {
         var count = 0
 
         list.forEach {
             if (!it.isDeleted)
                 count++
-        }
+        }*/
 
-        return count
+    internal inner class ViewHolderOtherFeatures(view: View) : RecyclerView.ViewHolder(view){
+        val infoTextOtherFeatures: TextView = view.findViewById(R.id.info_text_other_features)
     }
+
 }

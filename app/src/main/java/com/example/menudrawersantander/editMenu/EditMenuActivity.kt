@@ -6,10 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.example.menudrawersantander.R
+import com.example.menudrawersantander.editMenu.FragmentYourFeatures.Companion.itemList
+import com.example.menudrawersantander.menu.ItemMenu
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_edit_menu.*
 
 class EditMenuActivity : AppCompatActivity() {
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,26 +28,47 @@ class EditMenuActivity : AppCompatActivity() {
         titles.add(getString(R.string.your_features))
         titles.add(getString(R.string.all_features))
 
-        val adapter = ViewPagerAdapter(supportFragmentManager, titles)
+        val adapter = ViewPagerAdapter(supportFragmentManager,titles)
         pager.adapter = adapter
 
         tabs.setupWithViewPager(pager)
+
     }
 
-    //back to the previous activity
     fun cancelButton(view: View){
         finish()
     }
 
-    //to save the drag and drop changes (done button)
     fun doneButton(view: View){
 
         //Igual que arriba, el repositorio es quien gestiona esto, para la activity debería ser, leer o guardar.
         val sharedPref: SharedPreferences = getSharedPreferences("features", 0) //Private mode
-        val data = Gson().toJson(FragmentYourFeatures.itemList)
+
+
         val editor = sharedPref.edit()
+        editor.putInt("otherFeaturesPosition",removeSeparator(itemList))
+        val data = Gson().toJson(itemList)
         editor.putString("yourFeatures", data)
         editor.apply()
+
         finish()
+
     }
+
+    //Remove separator from list and return the position where it was
+    private fun removeSeparator(list: ArrayList<ItemMenu>):Int {
+
+        var i = 0
+        while(i < list.size){
+
+            if(list[i].type == 2) {
+                list.removeAt(i)
+                return i
+            }
+            else i++
+        }
+        return 4//TODO default position for separator
+
+    }
+
 }
