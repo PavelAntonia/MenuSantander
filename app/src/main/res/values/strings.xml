@@ -17,14 +17,13 @@
     <string name="edit_menu">Edit menu</string>
     <string name="other_features">Other features</string>
     <string name="log_out">Log out</string>
-    <string name="title_activity_edit_menu">EditMenu</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
     <string name="cancel">Cancel</string>
     <string name="done">Done</string>
-
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="your_features">Your features</string>
     <string name="all_features">All features</string>
+    <string name="info_text_other_features">Drag here the features you want to see in a second level</string>
+
+
+
+
 </resources>
