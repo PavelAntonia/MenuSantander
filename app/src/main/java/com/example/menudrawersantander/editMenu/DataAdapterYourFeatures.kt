@@ -18,17 +18,22 @@ private const val ITEM_VIEWHOLDER = 0
 private const val OTHER_FEATURES_VIEWHOLDER = 1
 
 
-internal class DataAdapterYourFeatures(private val items: ArrayList<ItemMenu>,
-                                       positionOtherFeatures: Int,
-                                       private val dragStartListener: OnStartDragListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DataAdapterYourFeatures(
+    private val items: ArrayList<ItemMenu>,
+    positionOtherFeatures: Int,
+    private val dragStartListener: OnStartDragListener
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    companion object{
+    companion object {
         lateinit var listYourFeatures: ArrayList<ItemMenu>
     }
 
     init {
         listYourFeatures = items
-        items.add(positionOtherFeatures,ItemMenu(1,"Separator",1, positionOtherFeatures,false,TypeItemMenu.SEPARATOR.value))
+        items.add(
+            positionOtherFeatures,
+            ItemMenu(1, "Separator", 1, positionOtherFeatures, false, TypeItemMenu.SEPARATOR.value)
+        )
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -53,12 +58,12 @@ internal class DataAdapterYourFeatures(private val items: ArrayList<ItemMenu>,
 
             (viewHolder as ViewHolderItem)
 
-            viewHolder.sliderItem.setOnTouchListener(View.OnTouchListener { v, event ->
+            viewHolder.sliderItem.setOnTouchListener { v, event ->
                 if (MotionEventCompat.getActionMasked(event) == ACTION_DOWN) {
                     dragStartListener.onStartDrag(viewHolder)
                 }
                 false
-            })
+            }
 
             val item = items[i]
 
@@ -67,12 +72,19 @@ internal class DataAdapterYourFeatures(private val items: ArrayList<ItemMenu>,
 
                 viewHolder.deleteItem.setOnClickListener {
 
-                    items.remove(item)
-                    notifyItemRemoved(i)
-                    item.position = DataAdapterAllFeatures.listAllFeatures.size
-                    DataAdapterAllFeatures.listAllFeatures.add(item)
+                    val positionOfItem = item.getPosItemAt(items)
 
+                    if (positionOfItem != null) {
+                        items.removeAt(positionOfItem)
+                        notifyItemRemoved(positionOfItem)
 
+                        val destinationPos = DataAdapterAllFeatures.listAllFeatures.size
+
+                        item.position = destinationPos
+
+                        DataAdapterAllFeatures.listAllFeatures.add(item)
+                        FragmentAllFeatures.adapterAllFeatures.notifyItemInserted(destinationPos)
+                    }
 
                 }
             }
@@ -81,13 +93,12 @@ internal class DataAdapterYourFeatures(private val items: ArrayList<ItemMenu>,
             viewHolder.nameItem.text = item.itemName
             viewHolder.sliderItem.setImageResource(R.drawable.ic_sys_15)
 
-        } else{
+        } else {
 
-            if(i != items.size - 1)
+            if (i != items.size - 1)
                 (viewHolder as ViewHolderOtherFeatures).infoTextOtherFeatures.visibility = View.GONE
         }
     }
-
 
     override fun getItemCount(): Int {
         return items.size

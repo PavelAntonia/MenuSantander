@@ -1,32 +1,28 @@
 package com.example.menudrawersantander.editMenu
 
-
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log.d
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.example.menudrawersantander.R
-import com.example.menudrawersantander.menu.DataAdapter
 import com.example.menudrawersantander.menu.ItemMenu
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.activity_edit_menu.*
-import kotlinx.android.synthetic.main.fragment_edit.*
-import kotlinx.android.synthetic.main.fragment_edit.view.*
 import kotlinx.android.synthetic.main.fragment_edit.view.recycler_features
 import java.util.*
 import kotlin.collections.ArrayList
 
-class FragmentYourFeatures : Fragment(), OnStartDragListener {
+class FragmentYourFeatures : Fragment(),OnStartDragListener  {
 
+
+    companion object{
+        lateinit var adapterYourFeatures: DataAdapterYourFeatures
+    }
 
     lateinit var helper: ItemTouchHelper
 
@@ -37,15 +33,14 @@ class FragmentYourFeatures : Fragment(), OnStartDragListener {
         val groupListType = object : TypeToken<ArrayList<ItemMenu>>() {}.type
 
         val sharedPref: SharedPreferences = activity!!.getSharedPreferences("features", 0) //Private mode
-        val listYourFeatures =
-            Gson().fromJson<ArrayList<ItemMenu>>(sharedPref.getString("yourFeatures", ""), groupListType)
+        val listYourFeatures = Gson().fromJson<ArrayList<ItemMenu>>(sharedPref.getString("yourFeatures", ""), groupListType)
         val positionOtherFeatures = sharedPref.getInt("otherFeaturesPosition", 4)
 
         listYourFeatures.sort()
 
         view.recycler_features.layoutManager = LinearLayoutManager(view.context)
-        val mAdapter = DataAdapterYourFeatures(listYourFeatures, positionOtherFeatures, this)
-        view.recycler_features.adapter = mAdapter
+        adapterYourFeatures = DataAdapterYourFeatures(listYourFeatures, positionOtherFeatures,this)
+        view.recycler_features.adapter = adapterYourFeatures
 
         helper =
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0) {
@@ -66,7 +61,7 @@ class FragmentYourFeatures : Fragment(), OnStartDragListener {
 
 
                     Collections.swap(DataAdapterYourFeatures.listYourFeatures, posDragged, posTarget)
-                    mAdapter.notifyItemMoved(posDragged, posTarget)
+                    adapterYourFeatures.notifyItemMoved(posDragged, posTarget)
 
 
                     var i = 0

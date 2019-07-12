@@ -11,7 +11,7 @@ import com.example.menudrawersantander.R
 import com.example.menudrawersantander.menu.ItemMenu
 import java.util.ArrayList
 
-internal class DataAdapterAllFeatures(private val items: ArrayList<ItemMenu>) :
+class DataAdapterAllFeatures(private val items: ArrayList<ItemMenu>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -37,13 +37,23 @@ internal class DataAdapterAllFeatures(private val items: ArrayList<ItemMenu>) :
         viewHolder.itemIcon.setImageResource(item.itemIcon)
 
         viewHolder.btnAdd.setOnClickListener {
-            items.remove(item)
-            notifyItemRemoved(i)
-            item.position = DataAdapterYourFeatures.listYourFeatures.size
-            DataAdapterYourFeatures.listYourFeatures.add(item)
+            val positionOfItem = item.getPosItemAt(items)
+
+            if (positionOfItem != null) {
+                items.removeAt(positionOfItem)
+                notifyItemRemoved(positionOfItem)
+
+                val destinationPos = DataAdapterYourFeatures.listYourFeatures.size
+
+                item.position = destinationPos
+
+                DataAdapterYourFeatures.listYourFeatures.add(item)
+                FragmentYourFeatures.adapterYourFeatures.notifyItemInserted(destinationPos)
+            }
         }
 
     }
+
 
     override fun getItemCount(): Int {
         return items.size
@@ -60,8 +70,6 @@ internal class DataAdapterAllFeatures(private val items: ArrayList<ItemMenu>) :
             btnAdd = view.findViewById(R.id.button_add_feature)
         }
 
-
     }
-
 
 }
