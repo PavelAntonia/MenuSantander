@@ -11,23 +11,28 @@ import androidx.core.view.MotionEventCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.menudrawersantander.R
 import com.example.menudrawersantander.menu.ItemMenu
+import com.example.menudrawersantander.menu.TypeItemMenu
 import java.util.ArrayList
 
 private const val ITEM_VIEWHOLDER = 0
 private const val OTHER_FEATURES_VIEWHOLDER = 1
 
 
-internal class DataAdapterYourFeatures(private val names: ArrayList<ItemMenu>,
-                                       private val positionOtherFeatures: Int,
+internal class DataAdapterYourFeatures(private val items: ArrayList<ItemMenu>,
+                                       positionOtherFeatures: Int,
                                        private val dragStartListener: OnStartDragListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    companion object{
+        lateinit var listYourFeatures: ArrayList<ItemMenu>
+    }
 
     init {
-        names.add(positionOtherFeatures, ItemMenu(1, "Separador", 232, positionOtherFeatures, false, 2))
+        listYourFeatures = items
+        items.add(positionOtherFeatures,ItemMenu(1,"Separator",1, positionOtherFeatures,false,TypeItemMenu.SEPARATOR.value))
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (names[position].type == 2) OTHER_FEATURES_VIEWHOLDER else ITEM_VIEWHOLDER
+        return if (items[position].type == TypeItemMenu.SEPARATOR.value) OTHER_FEATURES_VIEWHOLDER else ITEM_VIEWHOLDER
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -44,38 +49,48 @@ internal class DataAdapterYourFeatures(private val names: ArrayList<ItemMenu>,
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, i: Int) {
 
-        if (getItemViewType(i) == 0) {
+        if (getItemViewType(i) == ITEM_VIEWHOLDER) {
 
             (viewHolder as ViewHolderItem)
+
             viewHolder.sliderItem.setOnTouchListener(View.OnTouchListener { v, event ->
                 if (MotionEventCompat.getActionMasked(event) == ACTION_DOWN) {
                     dragStartListener.onStartDrag(viewHolder)
                 }
-                
                 false
             })
 
-            // Qué significa este 0? Se podría sustituir por un enumerado?
-            // Qué valores podrían llegar en este campo?
-            if (names[i].type != 0) {
-                //Si este elemento siempre tiene el mismo valor, tiene que asignarse  cada vez que hago un bind?
+            val item = items[i]
+
+            if (item.type != TypeItemMenu.DEFAULT.value) {
                 viewHolder.deleteItem.setImageResource(R.drawable.ic_func_031)
+
+                viewHolder.deleteItem.setOnClickListener {
+
+                    items.remove(item)
+                    notifyItemRemoved(i)
+                    item.position = DataAdapterAllFeatures.listAllFeatures.size
+                    DataAdapterAllFeatures.listAllFeatures.add(item)
+
+
+
+                }
             }
-            //Podeis ahorraros tener que acceder tantas veces al arry de names, guardando el valor en una variable
-            viewHolder.iconItem.setImageResource(names[i].itemIcon)
-            viewHolder.nameItem.text = names[i].itemName
+
+            viewHolder.iconItem.setImageResource(item.itemIcon)
+            viewHolder.nameItem.text = item.itemName
             viewHolder.sliderItem.setImageResource(R.drawable.ic_sys_15)
 
-        } else {
+        } else{
 
-            if (i != names.size - 1)
+            if(i != items.size - 1)
                 (viewHolder as ViewHolderOtherFeatures).infoTextOtherFeatures.visibility = View.GONE
         }
     }
 
 
     override fun getItemCount(): Int {
-        return names.size
+        return items.size
     }
 
     internal inner class ViewHolderItem(view: View) : RecyclerView.ViewHolder(view) {

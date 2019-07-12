@@ -8,7 +8,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import android.view.View
 import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,68 +43,93 @@ class MainActivity : AppCompatActivity() {
         //Como ahora teneis repositorio, todo el codigo muerto -> delete :)
         ///////////////////// INSERT DATA IN SHARED PREFERENCES (TEMPORAL) //////////////////
 
-//        val shared: SharedPreferences = getSharedPreferences("features", 0) //Private mode
-//
-//        val sharedList = ArrayList<ItemMenu>()
-//        sharedList.add(
-//            ItemMenu(
-//                1,
-//                "Mobile payment",
-//                R.drawable.ic_func_052,
-//                2,
-//                false,
-//                0
-//            )
-//        )
-//        sharedList.add(
-//            ItemMenu(
-//                2,
-//                "Payments and transfers",
-//                R.drawable.ic_ban_070,
-//                3,
-//                false,
-//                0
-//            )
-//        )
-//        sharedList.add(
-//            ItemMenu(
-//                3,
-//                "Cards",
-//                R.drawable.ic_ban_099,
-//                1,
-//                false,
-//                1
-//            )
-//        )
-//        sharedList.add(
-//            ItemMenu(
-//                4,
-//                "Global position",
-//                R.drawable.ic_serv_023,
-//                1,
-//                true,
-//                0
-//            )
-//        )
-//        sharedList.add(
-//            ItemMenu(
-//                5,
-//                "Products",
-//                R.drawable.ic_ban_089,
-//                4,
-//                false,
-//                1
-//            )
-//        )
-//
-//
-//        val data = Gson().toJson(sharedList)
-//        val editor = shared.edit()
-//        editor.putString("yourFeatures", data)
-//        editor.putInt("otherFeaturesPosition",2)
-//        editor.apply()
-//
-//        /////////////////////////////////////////////////////////////////////////
+        val shared: SharedPreferences = getSharedPreferences("features", 0) //Private mode
+
+        val yourFeatures = ArrayList<ItemMenu>()
+
+        yourFeatures.add(
+            ItemMenu(
+                1,
+                "Mobile payment",
+                R.drawable.ic_func_052,
+                2,
+                false,
+                0
+            )
+        )
+        yourFeatures.add(
+            ItemMenu(
+                2,
+                "Payments and transfers",
+                R.drawable.ic_ban_070,
+                3,
+                false,
+                0
+            )
+        )
+        yourFeatures.add(
+            ItemMenu(
+                3,
+                "Cards",
+                R.drawable.ic_ban_099,
+                1,
+                false,
+                1
+            )
+        )
+        yourFeatures.add(
+            ItemMenu(
+                4,
+                "Global position",
+                R.drawable.ic_serv_023,
+                1,
+                true,
+                0
+            )
+        )
+        yourFeatures.add(
+            ItemMenu(
+                5,
+                "Products",
+                R.drawable.ic_ban_089,
+                4,
+                false,
+                1
+            )
+        )
+
+        val allFeatures = ArrayList<ItemMenu>()
+        allFeatures.add(
+            ItemMenu(
+                6, "Accounts", R.drawable.ic_ban_001_b, 1, false,1
+            )
+        )
+        allFeatures.add(
+            ItemMenu(
+                6, "Utilities", R.drawable.ic_serv_098, 2, false,1
+            )
+        )
+        allFeatures.add(
+            ItemMenu(
+                6, "Funds", R.drawable.ic_ban_ban_034, 3, false,1
+            )
+        )
+        allFeatures.add(
+            ItemMenu(
+                6, "Loans", R.drawable.ic_ban_025, 4, false,1
+            )
+        )
+
+
+        val data = Gson().toJson(yourFeatures)
+        val data2 = Gson().toJson(allFeatures)
+        val editor = shared.edit()
+        editor.putString("yourFeatures", data)
+        editor.putString("allFeatures", data2)
+        editor.putInt("otherFeaturesPosition",2)
+        editor.apply()
+
+       /////////////////////////////////////////////////////////////////////////
 
     }
 

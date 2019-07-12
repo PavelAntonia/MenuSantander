@@ -22,8 +22,7 @@
     <string name="your_features">Your features</string>
     <string name="all_features">All features</string>
     <string name="info_text_other_features">Drag here the features you want to see in a second level</string>
-
-
+    <string name="add">Add</string>
 
 
 </resources>

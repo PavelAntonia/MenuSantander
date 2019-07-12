@@ -36,12 +36,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/name_item"
-            android:text="Mobile payment"
+            tools:text="Mobile payment"
+            style="@style/Body1"
 
             app:layout_constraintStart_toEndOf="@id/icon_item"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"/>
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     <ImageView
             android:layout_width="24dp"

@@ -16,6 +16,5 @@ class ItemMenu(
     override fun compareTo(other: ItemMenu): Int {
 
         return this.position - other.position
-
     }
 }
