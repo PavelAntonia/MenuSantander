@@ -8,12 +8,8 @@
         android:fitsSystemWindows="true"
         tools:openDrawer="end">
 
-    <include
-            layout="@layout/app_bar_main"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+    <include layout="@layout/app_bar_main"/>
 
-    <include
-        layout="@layout/navigation_menu"/>
+    <include layout="@layout/navigation_menu"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

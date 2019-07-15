@@ -1,6 +1,5 @@
 package com.example.menudrawersantander.editMenu
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,12 +9,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.menudrawersantander.R
-import com.example.menudrawersantander.menu.ItemMenu
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.example.menudrawersantander.menu.AccessSharedPref
 import kotlinx.android.synthetic.main.fragment_edit.view.recycler_features
 import java.util.*
-import kotlin.collections.ArrayList
 
 class FragmentYourFeatures : Fragment(),OnStartDragListener  {
 
@@ -30,11 +26,10 @@ class FragmentYourFeatures : Fragment(),OnStartDragListener  {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_edit, container, false)
 
-        val groupListType = object : TypeToken<ArrayList<ItemMenu>>() {}.type
 
-        val sharedPref: SharedPreferences = activity!!.getSharedPreferences("features", 0) //Private mode
-        val listYourFeatures = Gson().fromJson<ArrayList<ItemMenu>>(sharedPref.getString("yourFeatures", ""), groupListType)
-        val positionOtherFeatures = sharedPref.getInt("otherFeaturesPosition", 4)
+        val accessSharedPref = AccessSharedPref(view.context)
+        val listYourFeatures = accessSharedPref.readYourFeatures()
+        val positionOtherFeatures = accessSharedPref.readPosOtherFeatures()
 
         listYourFeatures.sort()
 

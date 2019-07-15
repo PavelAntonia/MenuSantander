@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.menudrawersantander.R
 import com.example.menudrawersantander.editMenu.EditMenuActivity
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.navigation_menu.*
 
 class MainActivity : AppCompatActivity() {
@@ -40,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        //Como ahora teneis repositorio, todo el codigo muerto -> delete :)
         ///////////////////// INSERT DATA IN SHARED PREFERENCES (TEMPORAL) //////////////////
 
         val shared: SharedPreferences = getSharedPreferences("features", 0) //Private mode
@@ -120,7 +118,6 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-
         val data = Gson().toJson(yourFeatures)
         val data2 = Gson().toJson(allFeatures)
         val editor = shared.edit()
@@ -130,15 +127,12 @@ class MainActivity : AppCompatActivity() {
         editor.apply()
 
        /////////////////////////////////////////////////////////////////////////
-
     }
-
 
     override fun onStart() {
         super.onStart()
         setUpMenu()
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
@@ -159,18 +153,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpMenu() {
 
-        val groupListType = object : TypeToken<ArrayList<ItemMenu>>() {}.type
-
-        val sharedPref: SharedPreferences = getSharedPreferences("features", 0) //Private mode
-        //Os suena este codigo de otro lugar? :))
-        val itemList = Gson().fromJson<ArrayList<ItemMenu>>(sharedPref.getString("yourFeatures", ""), groupListType)
-        val positionOtherFeatures = sharedPref.getInt("otherFeaturesPosition",4)//TODO CHANGE DEFAULT VALUE
+        val accessSharedPref = AccessSharedPref(this)
+        val itemList = accessSharedPref.readYourFeatures()
+        val positionOtherFeatures = accessSharedPref.readPosOtherFeatures()
 
         itemList.sort()
 
         selected_items.layoutManager = LinearLayoutManager(this)
-        val mAdapter = DataAdapter(itemList,positionOtherFeatures)
-        selected_items.adapter = mAdapter
+        selected_items.adapter = DataAdapter(itemList,positionOtherFeatures)
     }
 
     fun intentEditMenu(view: View){

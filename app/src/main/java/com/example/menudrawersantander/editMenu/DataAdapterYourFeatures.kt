@@ -20,7 +20,7 @@ private const val OTHER_FEATURES_VIEWHOLDER = 1
 
 class DataAdapterYourFeatures(
     private val items: ArrayList<ItemMenu>,
-    positionOtherFeatures: Int,
+    positionOtherFeatures: Int?,
     private val dragStartListener: OnStartDragListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -30,10 +30,7 @@ class DataAdapterYourFeatures(
 
     init {
         listYourFeatures = items
-        items.add(
-            positionOtherFeatures,
-            ItemMenu(1, "Separator", 1, positionOtherFeatures, false, TypeItemMenu.SEPARATOR.value)
-        )
+        ItemMenu.addSeparator(items, positionOtherFeatures)
     }
 
     override fun getItemViewType(position: Int): Int {

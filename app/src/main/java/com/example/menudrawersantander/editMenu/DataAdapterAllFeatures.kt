@@ -51,7 +51,6 @@ class DataAdapterAllFeatures(private val items: ArrayList<ItemMenu>) :
                 FragmentYourFeatures.adapterYourFeatures.notifyItemInserted(destinationPos)
             }
         }
-
     }
 
 
@@ -69,7 +68,5 @@ class DataAdapterAllFeatures(private val items: ArrayList<ItemMenu>) :
             itemIcon = view.findViewById(R.id.img_item_all)
             btnAdd = view.findViewById(R.id.button_add_feature)
         }
-
     }
-
 }
