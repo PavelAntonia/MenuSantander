@@ -43,11 +43,11 @@ class DataAdapterAllFeatures(private val items: ArrayList<ItemMenu>) :
                 items.removeAt(positionOfItem)
                 notifyItemRemoved(positionOfItem)
 
-                val destinationPos = DataAdapterYourFeatures.listYourFeatures.size
+                val destinationPos = ItemMenu.getPositionOtherFeatures(DataAdapterYourFeatures.listYourFeatures)
 
                 item.position = destinationPos
 
-                DataAdapterYourFeatures.listYourFeatures.add(item)
+                DataAdapterYourFeatures.listYourFeatures.add(destinationPos, item)
                 FragmentYourFeatures.adapterYourFeatures.notifyItemInserted(destinationPos)
             }
         }
@@ -59,14 +59,8 @@ class DataAdapterAllFeatures(private val items: ArrayList<ItemMenu>) :
     }
 
     internal inner class ViewHolderItem(view: View) : RecyclerView.ViewHolder(view) {
-        var itemName: TextView
-        var itemIcon: ImageView
-        var btnAdd: Button
-
-        init {
-            itemName = view.findViewById(R.id.name_item_all)
-            itemIcon = view.findViewById(R.id.img_item_all)
-            btnAdd = view.findViewById(R.id.button_add_feature)
-        }
+        var itemName: TextView = view.findViewById(R.id.name_item_all)
+        var itemIcon: ImageView = view.findViewById(R.id.img_item_all)
+        var btnAdd: Button = view.findViewById(R.id.button_add_feature)
     }
 }

@@ -27,6 +27,17 @@ class ItemMenu(
             return null
         }
 
+        fun getPositionOtherFeatures(list: ArrayList<ItemMenu>):Int {
+            var i = 0
+            while(i < list.size){
+                if(list[i].type == TypeItemMenu.SEPARATOR.value) {
+                    return i
+                }
+                else i++
+            }
+            return list.size
+        }
+
         fun addSeparator(list: java.util.ArrayList<ItemMenu>, positionOtherFeatures: Int?) {
 
             val pos = positionOtherFeatures ?: list.size

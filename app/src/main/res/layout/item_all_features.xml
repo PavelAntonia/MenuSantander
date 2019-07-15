@@ -25,7 +25,8 @@
             app:layout_constraintStart_toEndOf="@+id/img_item_all"
             android:layout_marginStart="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            style="@style/Body1"/>
+            style="@style/Body1"
+            android:fontFamily="@font/santandertext_regular" />
     <Button
             android:layout_width="76dp"
             android:layout_height="32dp"
@@ -39,6 +40,8 @@
             android:textColor="@color/santan_red"
             android:background="@drawable/btn_rounded"
             android:stateListAnimator="@null"
+            android:fontFamily="@font/santandertext_regular"
+
     />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

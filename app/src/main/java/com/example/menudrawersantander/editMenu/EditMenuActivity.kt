@@ -1,5 +1,6 @@
 package com.example.menudrawersantander.editMenu
 
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -39,9 +40,10 @@ class EditMenuActivity : AppCompatActivity() {
         }
 
         val accessSharedPref = AccessSharedPref(this)
+        accessSharedPref.writePosOtherFeatures(ItemMenu.removeSeparator(DataAdapterYourFeatures.listYourFeatures))
         accessSharedPref.writeAllFeatures(DataAdapterAllFeatures.listAllFeatures)
         accessSharedPref.writeYourFeatures(DataAdapterYourFeatures.listYourFeatures)
-        accessSharedPref.writePosOtherFeatures(ItemMenu.removeSeparator(DataAdapterYourFeatures.listYourFeatures))
+
 
         finish()
     }

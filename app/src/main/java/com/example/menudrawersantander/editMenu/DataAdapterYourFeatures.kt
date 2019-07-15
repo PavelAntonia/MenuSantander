@@ -24,7 +24,7 @@ class DataAdapterYourFeatures(private val items: ArrayList<ItemMenu>, positionOt
 
     private val Int.toDP: Int
         get() = (this * Resources.getSystem().displayMetrics.density).toInt()
-    
+
     companion object {
         lateinit var listYourFeatures: ArrayList<ItemMenu>
     }

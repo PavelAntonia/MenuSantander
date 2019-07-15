@@ -38,6 +38,7 @@
             android:id="@+id/name_item"
             tools:text="Mobile payment"
             style="@style/Body1"
+            android:fontFamily="@font/santandertext_regular"
 
             app:layout_constraintStart_toEndOf="@id/icon_item"
             app:layout_constraintTop_toTopOf="parent"

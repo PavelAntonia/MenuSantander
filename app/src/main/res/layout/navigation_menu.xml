@@ -29,10 +29,11 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:layout_marginStart="17dp"
                         android:layout_marginBottom="16dp"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/santandertext_regular"
+
                         android:text="Anto Pvl"/>
 
-                <TextView
+                <Button
                         android:id="@+id/edit_menu"
                         style="@style/Body1"
                         android:layout_width="wrap_content"
@@ -41,9 +42,13 @@
                         android:layout_marginEnd="16dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginBottom="24dp"
+                        android:layout_marginBottom="9dp"
                         android:text="@string/edit_menu"
-                        android:onClick="intentEditMenu"/>
+                        android:onClick="intentEditMenu"
+                        android:textAllCaps="false"
+                        android:background="@color/backgroundTopMenu"
+                        android:stateListAnimator="@null"
+                        android:fontFamily="@font/santandertext_regular" />
 
                 <View
                         android:layout_width="match_parent"
@@ -88,10 +93,9 @@
                             android:layout_height="wrap_content"
                             android:text="@string/log_out"
                             style="@style/Button"
-                            android:textStyle="bold"
-                            android:layout_marginEnd="8dp"
+                            android:fontFamily="@font/santandertext_bold"
+                            android:layout_marginEnd="8dp"/>
 
-                    />
                     <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

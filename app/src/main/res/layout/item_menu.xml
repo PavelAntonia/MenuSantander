@@ -22,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Body1"
+            android:fontFamily="@font/santandertext_regular"
             android:id="@+id/name_item"
             tools:text="Mobile payment"
             app:layout_constraintTop_toTopOf="parent"

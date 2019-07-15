@@ -14,33 +14,38 @@
             android:layout_width="match_parent"
             android:layout_height="56dp">
 
-        <TextView
+        <Button
                 android:id="@+id/edit_menu_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cancel"
                 android:textSize="16sp"
                 android:textColor="@color/dark_grey"
-                android:gravity="center_horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginStart="24dp"
-                android:layout_marginBottom="8dp"
                 android:onClick="cancelButton"
-        />
-        <TextView
+                android:textAllCaps="false"
+                android:background="@color/white"
+                android:stateListAnimator="@null"
+                android:textAlignment="textStart"/>
+        <Button
                 android:id="@+id/edit_menu_done"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/done"
                 android:textSize="16sp"
                 android:textColor="@color/dark_grey"
-                android:gravity="center_horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="24dp"
-                android:layout_marginBottom="8dp"
-                android:onClick="doneButton"/>
+                android:onClick="doneButton"
+                android:textAllCaps="false"
+                android:background="@color/white"
+                android:stateListAnimator="@null"
+                android:textAlignment="textEnd"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
