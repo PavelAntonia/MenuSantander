@@ -17,7 +17,7 @@
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="12dp"/>
 
     <ImageView
@@ -44,16 +44,28 @@
             android:layout_marginStart="12dp"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:id="@+id/slider_item"
-            android:src="@drawable/ic_sys_15"
-            android:tint="@color/dark_grey"
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="46dp"
+            android:id="@+id/draggable_zone"
+            android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="12dp"
-            android:layout_marginEnd="15dp"/>
+            android:layout_marginEnd="4dp">
+
+        <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:id="@+id/slider_item"
+                android:src="@drawable/ic_sys_15"
+                android:tint="@color/dark_grey"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+               />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
