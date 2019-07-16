@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.menudrawersantander.R
 import com.example.menudrawersantander.menu.AccessSharedPref
+import com.example.menudrawersantander.menu.ItemMenu
 import kotlinx.android.synthetic.main.fragment_edit.view.recycler_features
 import java.util.*
 
@@ -30,8 +31,6 @@ class FragmentYourFeatures : Fragment(),OnStartDragListener  {
         val accessSharedPref = AccessSharedPref(view.context)
         val listYourFeatures = accessSharedPref.readYourFeatures()
         val positionOtherFeatures = accessSharedPref.readPosOtherFeatures()
-
-        listYourFeatures.sort()
 
         view.recycler_features.layoutManager = LinearLayoutManager(view.context)
         adapterYourFeatures = DataAdapterYourFeatures(listYourFeatures, positionOtherFeatures,this)
@@ -58,11 +57,8 @@ class FragmentYourFeatures : Fragment(),OnStartDragListener  {
                     Collections.swap(DataAdapterYourFeatures.listYourFeatures, posDragged, posTarget)
                     adapterYourFeatures.notifyItemMoved(posDragged, posTarget)
 
-
-                    var i = 0
-                    listYourFeatures.forEach {
-                        it.position = i++
-                    }
+                    val posOtherFeatures = ItemMenu.getPositionOtherFeatures(DataAdapterYourFeatures.listYourFeatures)
+                    FragmentYourFeatures.adapterYourFeatures.notifyItemChanged(posOtherFeatures)
 
                     return false
                 }
