@@ -103,9 +103,8 @@ class DataAdapterYourFeatures(private val items: ArrayList<ItemMenu>, positionOt
 
         } else {
 
-            if (i != items.size - 1)
-                (viewHolder as ViewHolderOtherFeatures).infoTextOtherFeatures.visibility = View.GONE
-            else (viewHolder as ViewHolderOtherFeatures).infoTextOtherFeatures.visibility = View.VISIBLE
+            val visibility = if (i != items.size - 1) View.GONE else View.VISIBLE
+            (viewHolder as ViewHolderOtherFeatures).infoTextOtherFeatures.visibility = visibility
         }
     }
 
