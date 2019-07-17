@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
 import android.view.View
-import android.view.ViewTreeObserver
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
@@ -12,7 +11,8 @@ import com.santander.globile.globilemenu.R
 import com.santander.globile.globilemenu.editMenu.EditMenuActivity
 import kotlinx.android.synthetic.main.globilebank_navigation_view.view.*
 
-class GlobileBankNavigationView(context: Context, attrs: AttributeSet) : NavigationView(context, attrs) {
+class GlobileBankNavigationView(context: Context, attrs: AttributeSet) : NavigationView(context, attrs),
+    DataAdapter.Listener {
 
     private var listener: Listener? = null
 
@@ -46,13 +46,19 @@ class GlobileBankNavigationView(context: Context, attrs: AttributeSet) : Navigat
 
         selected_items.layoutManager = LinearLayoutManager(context)
         selected_items.adapter = DataAdapter(itemList,positionOtherFeatures)
+        (selected_items.adapter as DataAdapter).setListener(this)
     }
 
     fun setListener(listener: Listener) {
         this.listener = listener
     }
 
+    override fun onItemClicked(itemId: Int) {
+        listener?.onItemClicked(itemId)
+    }
+
     interface Listener {
         fun onLogOutClicked()
+        fun onItemClicked(itemId: Int)
     }
 }

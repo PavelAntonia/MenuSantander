@@ -2,6 +2,7 @@ package com.santander.globile.globilemenu.menu
 
 class ItemMenu(
 
+    var id: Int,
     var itemName: String,
     var itemIcon: Int,
     var position: Int,
@@ -40,7 +41,7 @@ class ItemMenu(
 
             val pos = positionOtherFeatures ?: list.size
 
-            list.add(pos, ItemMenu( "Separator", 0, pos, TypeItemMenu.SEPARATOR.value))
+            list.add(pos, ItemMenu(0, "Separator", 0, pos, TypeItemMenu.SEPARATOR.value))
         }
     }
 

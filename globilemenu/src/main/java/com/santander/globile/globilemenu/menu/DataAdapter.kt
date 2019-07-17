@@ -15,6 +15,11 @@ private const val OTHER_FEATURES_VIEWHOLDER = 1
 internal class DataAdapter(private val items: ArrayList<ItemMenu>, private val positionOtherFeatures: Int?) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    private var listener: Listener? = null
+
+    fun setListener(listener: Listener) {
+        this.listener = listener
+    }
 
     override fun getItemViewType(position: Int): Int {
         return if (positionOtherFeatures!=null && position == positionOtherFeatures) OTHER_FEATURES_VIEWHOLDER else ITEM_VIEWHOLDER
@@ -44,6 +49,10 @@ internal class DataAdapter(private val items: ArrayList<ItemMenu>, private val p
             (viewHolder as ViewHolderItem).itemName.text = item.itemName
             viewHolder.itemIcon.setImageResource(item.itemIcon)
 
+            viewHolder.itemView.setOnClickListener {
+                listener?.onItemClicked(items[pos].id)
+            }
+
         } else (viewHolder as ViewHolderOtherFeatures).infoTextOtherFeatures.visibility = View.GONE
     }
 
@@ -51,7 +60,7 @@ internal class DataAdapter(private val items: ArrayList<ItemMenu>, private val p
         return if (positionOtherFeatures == items.size) items.size else items.size + 1
     }
 
-    internal inner class ViewHolderItem(view: View) : RecyclerView.ViewHolder(view) {
+      class ViewHolderItem(view: View) : RecyclerView.ViewHolder(view) {
         var itemName: TextView = view.findViewById(R.id.name_item)
         var itemIcon: ImageView = view.findViewById(R.id.img_item)
     }
@@ -60,4 +69,7 @@ internal class DataAdapter(private val items: ArrayList<ItemMenu>, private val p
         val infoTextOtherFeatures: TextView = view.findViewById(R.id.info_text_other_features)
     }
 
+    interface Listener {
+        fun onItemClicked(itemId: Int)
+    }
 }

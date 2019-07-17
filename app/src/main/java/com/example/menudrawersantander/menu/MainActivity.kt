@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), GlobileBankNavigationView.Listener {
 
         yourFeatures.add(
             ItemMenu(
-
+                1,
                 "Mobile payment",
                 com.santander.globile.globilemenu.R.drawable.ic_func_052,
                 2,
@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity(), GlobileBankNavigationView.Listener {
         )
         yourFeatures.add(
             ItemMenu(
+                2,
                 "Payments and transfers",
                 com.santander.globile.globilemenu.R.drawable.ic_ban_070,
                 3,
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity(), GlobileBankNavigationView.Listener {
         )
         yourFeatures.add(
             ItemMenu(
+                3,
                 "Cards",
                 com.santander.globile.globilemenu.R.drawable.ic_ban_099,
                 1,
@@ -57,6 +59,7 @@ class MainActivity : AppCompatActivity(), GlobileBankNavigationView.Listener {
         )
         yourFeatures.add(
             ItemMenu(
+                4,
                 "Global position",
                 com.santander.globile.globilemenu.R.drawable.ic_serv_023,
                 1,
@@ -65,7 +68,7 @@ class MainActivity : AppCompatActivity(), GlobileBankNavigationView.Listener {
         )
         yourFeatures.add(
             ItemMenu(
-
+                5,
                 "Products",
                 com.santander.globile.globilemenu.R.drawable.ic_ban_089,
                 4,
@@ -76,21 +79,25 @@ class MainActivity : AppCompatActivity(), GlobileBankNavigationView.Listener {
         val allFeatures = ArrayList<ItemMenu>()
         allFeatures.add(
             ItemMenu(
-                "Accounts", com.santander.globile.globilemenu.R.drawable.ic_ban_001_b, 1,1
+                6,
+                "Accounts", com.santander.globile.globilemenu.R.drawable.ic_ban_001_b, 1, 1
             )
         )
         allFeatures.add(
             ItemMenu(
+                7,
                 "Utilities", com.santander.globile.globilemenu.R.drawable.ic_serv_098, 2, 1
             )
         )
         allFeatures.add(
             ItemMenu(
+                8,
                 "Funds", com.santander.globile.globilemenu.R.drawable.ic_ban_ban_034, 3, 1
             )
         )
         allFeatures.add(
             ItemMenu(
+                9,
                 "Loans", com.santander.globile.globilemenu.R.drawable.ic_ban_025, 4, 1
             )
         )
@@ -100,7 +107,7 @@ class MainActivity : AppCompatActivity(), GlobileBankNavigationView.Listener {
         val editor = shared.edit()
         editor.putString("yourFeatures", data)
         editor.putString("allFeatures", data2)
-        editor.putInt("otherFeaturesPosition",2)
+        editor.putInt("otherFeaturesPosition", 2)
         editor.apply()
 
         /////////////////////////////////////////////////////////////////////////
@@ -139,6 +146,10 @@ class MainActivity : AppCompatActivity(), GlobileBankNavigationView.Listener {
     }
 
     override fun onLogOutClicked() {
+
+    }
+
+    override fun onItemClicked(itemId: Int) {
 
     }
 
