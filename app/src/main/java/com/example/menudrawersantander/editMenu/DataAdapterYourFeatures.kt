@@ -4,16 +4,17 @@ import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.MotionEvent.ACTION_DOWN
+import android.view.MotionEvent.ACTION_MASK
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.MotionEventCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.menudrawersantander.menu.ItemMenu
 import com.example.menudrawersantander.menu.TypeItemMenu
 import java.util.ArrayList
+
 
 private const val ITEM_VIEWHOLDER = 0
 private const val OTHER_FEATURES_VIEWHOLDER = 1
@@ -56,8 +57,8 @@ class DataAdapterYourFeatures(private val items: ArrayList<ItemMenu>, positionOt
 
             (viewHolder as ViewHolderItem)
 
-            viewHolder.draggableZone.setOnTouchListener { v, event ->
-                if (MotionEventCompat.getActionMasked(event) == ACTION_DOWN) {
+            viewHolder.draggableZone.setOnTouchListener { _, event ->
+                if (event.action and ACTION_MASK == ACTION_DOWN) {
                     dragStartListener.onStartDrag(viewHolder)
                 }
                 false
@@ -80,7 +81,7 @@ class DataAdapterYourFeatures(private val items: ArrayList<ItemMenu>, positionOt
 
                         item.position = destinationPos
 
-                        val posOtherFeatures = ItemMenu.getPositionOtherFeatures(DataAdapterYourFeatures.listYourFeatures)
+                        val posOtherFeatures = ItemMenu.getPositionOtherFeatures(listYourFeatures)
                         FragmentYourFeatures.adapterYourFeatures.notifyItemChanged(posOtherFeatures)
 
                         DataAdapterAllFeatures.listAllFeatures.add(item)
