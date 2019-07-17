@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/nav_view"
+        android:layout_width="289dp"
+        android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/header_nav"
+                android:layout_width="match_parent"
+                android:layout_height="96dp"
+                android:background="@color/backgroundTopMenu"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginBottom="16dp"
+                    android:textSize="32sp"
+                    android:textColor="@color/dark_grey"
+                    android:fontFamily="@font/santandertext_bold"
+                    tools:text="Anto Pvl"/>
+
+            <TextView
+                    android:id="@+id/edit_menu"
+                    android:textSize="16sp"
+                    android:textColor="@color/dark_grey"
+                    android:fontFamily="@font/santandertext_regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Edit menu"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="24dp"
+                    android:text="@string/edit_menu"
+                    android:onClick="intentEditMenu"/>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/medium_sky"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/selected_items"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:overScrollMode="never"
+                app:layout_constraintTop_toBottomOf="@+id/header_nav"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+                tools:listitem="@layout/item_menu"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@color/backgroundTopMenu"
+                android:id="@+id/constraintLayout">
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/medium_sky"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="17dp">
+
+                <TextView
+                        android:id="@+id/logOut"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/log_out"
+                        android:textSize="16sp"
+                        android:textColor="@color/dark_grey"
+                        android:fontFamily="@font/santandertext_bold"
+                        android:layout_marginEnd="8dp"
+
+                />
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_func_122"
+                        android:id="@+id/imageView"/>
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
