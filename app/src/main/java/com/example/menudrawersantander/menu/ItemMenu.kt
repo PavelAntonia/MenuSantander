@@ -2,11 +2,9 @@ package com.example.menudrawersantander.menu
 
 class ItemMenu(
 
-    var id: Int,
     var itemName: String,
     var itemIcon: Int,
     var position: Int,
-    var isDeleted: Boolean,
     var type: Int //Types->  Default: 0,  Other: 1, Separador: 2
 
 
@@ -42,7 +40,7 @@ class ItemMenu(
 
             val pos = positionOtherFeatures ?: list.size
 
-            list.add(pos, ItemMenu(0, "Separator", 0, pos, false, TypeItemMenu.SEPARATOR.value))
+            list.add(pos, ItemMenu( "Separator", 0, pos, TypeItemMenu.SEPARATOR.value))
         }
     }
 
@@ -54,7 +52,7 @@ class ItemMenu(
 
     override fun equals(other: Any?): Boolean {
         return if (other is ItemMenu) {
-            id == other.id && itemName == other.itemName && position == other.position && isDeleted == other.isDeleted && type == other.type
+           itemName == other.itemName && position == other.position && type == other.type
         } else false
     }
 
@@ -70,11 +68,10 @@ class ItemMenu(
     }
 
     override fun hashCode(): Int {
-        var result = id
-        result = 31 * result + itemName.hashCode()
+
+        var result = itemName.hashCode()
         result = 31 * result + itemIcon
         result = 31 * result + position
-        result = 31 * result + isDeleted.hashCode()
         result = 31 * result + type
         return result
     }

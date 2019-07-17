@@ -46,51 +46,44 @@ class MainActivity : AppCompatActivity() {
 
         yourFeatures.add(
             ItemMenu(
-                1,
+
                 "Mobile payment",
                 R.drawable.ic_func_052,
                 2,
-                false,
+
                 0
             )
         )
         yourFeatures.add(
             ItemMenu(
-                2,
                 "Payments and transfers",
                 R.drawable.ic_ban_070,
                 3,
-                false,
                 0
             )
         )
         yourFeatures.add(
             ItemMenu(
-                3,
                 "Cards",
                 R.drawable.ic_ban_099,
                 1,
-                false,
                 1
             )
         )
         yourFeatures.add(
             ItemMenu(
-                4,
                 "Global position",
                 R.drawable.ic_serv_023,
                 1,
-                true,
                 0
             )
         )
         yourFeatures.add(
             ItemMenu(
-                5,
+
                 "Products",
                 R.drawable.ic_ban_089,
                 4,
-                false,
                 1
             )
         )
@@ -98,22 +91,22 @@ class MainActivity : AppCompatActivity() {
         val allFeatures = ArrayList<ItemMenu>()
         allFeatures.add(
             ItemMenu(
-                6, "Accounts", R.drawable.ic_ban_001_b, 1, false,1
+               "Accounts", R.drawable.ic_ban_001_b, 1,1
             )
         )
         allFeatures.add(
             ItemMenu(
-                6, "Utilities", R.drawable.ic_serv_098, 2, false,1
+                "Utilities", R.drawable.ic_serv_098, 2, 1
             )
         )
         allFeatures.add(
             ItemMenu(
-                6, "Funds", R.drawable.ic_ban_ban_034, 3, false,1
+               "Funds", R.drawable.ic_ban_ban_034, 3, 1
             )
         )
         allFeatures.add(
             ItemMenu(
-                6, "Loans", R.drawable.ic_ban_025, 4, false,1
+             "Loans", R.drawable.ic_ban_025, 4, 1
             )
         )
 
